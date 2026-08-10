@@ -6,10 +6,10 @@ const grid = document.querySelector('#project-grid'); const filters = document.q
 const esc = value => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 categories.forEach(name => { const b=document.createElement('button'); b.textContent=name; b.className=name==='All'?'active':''; b.addEventListener('click',()=>{active=name; filters.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));render();}); filters.append(b); });
 const mediaMarkup=(p,i,modal=false)=>{
-  if(modal&&p.hoverMedia){return p.hoverMedia.includes('.mp4')?`<video src="${esc(p.hoverMedia)}" autoplay muted loop playsinline controls></video>`:`<img src="${esc(p.hoverMedia)}" alt="${esc(p.title)} animated project preview">`;}
+  if(modal&&p.hoverMedia){return p.hoverMedia.includes('.mp4')?`<video src="${esc(p.hoverMedia)}" ${p.image?`poster="${esc(p.image)}"`:''} autoplay muted loop playsinline controls></video>`:`<img src="${esc(p.hoverMedia)}" alt="${esc(p.title)} animated project preview">`;}
   const base=p.image?`<img class="media-static" src="${esc(p.image)}" alt="${esc(p.title)} project preview" loading="lazy">`:`<div class="project-glyph" aria-hidden="true">${String(i+1).padStart(2,'0')}<span></span></div>`;
   if(!p.hoverMedia)return base;
-  const hover=p.hoverMedia.includes('.mp4')?`<video class="media-hover" src="${esc(p.hoverMedia)}" muted loop playsinline preload="metadata"></video>`:`<img class="media-hover" src="${esc(p.hoverMedia)}" alt="" loading="lazy">`;
+  const hover=p.hoverMedia.includes('.mp4')?`<video class="media-hover hover-video" src="${esc(p.hoverMedia)}" ${p.image?`poster="${esc(p.image)}"`:''} muted loop playsinline preload="auto"></video>`:`<img class="media-hover hover-image" src="${esc(p.hoverMedia)}" alt="" loading="eager">`;
   return base+hover;
 };
 function render(){
@@ -21,8 +21,14 @@ function render(){
     const open=()=>openProject(card.dataset.project,card);
     card.addEventListener('click',open);
     card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
-    const video=card.querySelector('video.media-hover');
-    if(video){card.addEventListener('pointerenter',()=>video.play().catch(()=>{}));card.addEventListener('pointerleave',()=>{video.pause();video.currentTime=0;});}
+    const hover=card.querySelector('.media-hover');
+    if(hover instanceof HTMLImageElement){const ready=()=>card.classList.add('hover-ready');hover.addEventListener('load',ready,{once:true});if(hover.complete&&hover.naturalWidth)ready();}
+    if(hover instanceof HTMLVideoElement){
+      const playHover=()=>{if(!card.classList.contains('hover-ready'))return;hover.play().then(()=>card.classList.add('hover-active')).catch(()=>card.classList.remove('hover-active'));};
+      const ready=()=>{card.classList.add('hover-ready');if(card.matches(':hover'))playHover();}; hover.addEventListener('canplay',ready,{once:true}); if(hover.readyState>=3)ready();
+      card.addEventListener('pointerenter',playHover);
+      card.addEventListener('pointerleave',()=>{card.classList.remove('hover-active');hover.pause();hover.currentTime=0;});
+    }
   });
 }
 

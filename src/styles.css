@@ -12,8 +12,8 @@
 .project-media:after{z-index:1;transition:opacity .35s}
 .project-media img,.project-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7) contrast(1.08);transition:opacity .45s,transform .75s cubic-bezier(.2,.8,.2,1),filter .45s}
 .media-hover{opacity:0}
-.project-card:hover .media-static,.project-card:focus-visible .media-static{opacity:0}
-.project-card:hover .media-hover,.project-card:focus-visible .media-hover{opacity:1;filter:saturate(1) contrast(1.02);transform:scale(1.045)}
+.project-card.hover-ready:hover:has(.hover-image) .media-static,.project-card.hover-ready:focus-visible:has(.hover-image) .media-static,.project-card.hover-active .media-static{opacity:0}
+.project-card.hover-ready:hover .hover-image,.project-card.hover-ready:focus-visible .hover-image,.project-card.hover-active .hover-video{opacity:1;filter:saturate(1) contrast(1.02);transform:scale(1.045)}
 .project-card:hover .project-media:after,.project-card:focus-visible .project-media:after{opacity:.88}
 .project-glyph{transition:.6s}
 .project-card:hover .project-glyph,.project-card:focus-visible .project-glyph{transform:scale(1.08) rotate(-2deg);color:rgba(142,69,227,.36)}
