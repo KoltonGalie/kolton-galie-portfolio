@@ -5,3 +5,52 @@
 @media(max-width:620px){.site-header{height:68px}.brand>span:last-child{display:none}.hero{padding-inline:1.2rem}.hero h1{font-size:clamp(3rem,15vw,5rem)}.scroll-cue{left:1.2rem}.project-controls{display:block}.search{margin-top:1rem}.search input{width:100%}.project-card,.project-card.featured:nth-child(-n+2){grid-column:1/-1}.principles{grid-template-columns:1fr}.skill-group{grid-template-columns:35px 1fr}.skill-group div{grid-column:2}.section{padding-inline:1.2rem}.about-orbit{min-height:240px}.detail-hero{padding-inline:1.2rem}.detail-visual{aspect-ratio:1.2/1}.architecture{gap:2vw}.architecture span{font-size:.55rem;padding:.6rem}footer{grid-template-columns:auto 1fr}footer p:nth-child(2){display:none}.detail-content article{padding:2rem 1.2rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.cursor-glow,#network{display:none}}
 *:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+
+/* Interactive project previews */
+.project-card{position:relative;cursor:pointer;overflow:hidden;transition:transform .42s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .42s}
+.project-card:hover,.project-card:focus-visible{border-color:rgba(120,75,239,.9);box-shadow:0 24px 70px rgba(58,12,112,.28),0 0 0 1px rgba(64,132,255,.12);transform:translateY(-8px)}
+.project-media:after{z-index:1;transition:opacity .35s}
+.project-media img,.project-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7) contrast(1.08);transition:opacity .45s,transform .75s cubic-bezier(.2,.8,.2,1),filter .45s}
+.media-hover{opacity:0}
+.project-card:hover .media-static,.project-card:focus-visible .media-static{opacity:0}
+.project-card:hover .media-hover,.project-card:focus-visible .media-hover{opacity:1;filter:saturate(1) contrast(1.02);transform:scale(1.045)}
+.project-card:hover .project-media:after,.project-card:focus-visible .project-media:after{opacity:.88}
+.project-glyph{transition:.6s}
+.project-card:hover .project-glyph,.project-card:focus-visible .project-glyph{transform:scale(1.08) rotate(-2deg);color:rgba(142,69,227,.36)}
+.hover-prompt{position:absolute;z-index:3;left:1rem;right:1rem;bottom:1rem;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateY(12px);transition:.35s;color:#fff;font:500 .66rem DM Mono;text-transform:uppercase;letter-spacing:.1em}
+.hover-prompt i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(30deg,#6a11cb,#2575fc);font-style:normal;font-size:1rem}
+.project-card:hover .hover-prompt,.project-card:focus-visible .hover-prompt{opacity:1;transform:none}
+.project-info h3,.project-info .arrow{transition:.3s}
+.project-card:hover h3,.project-card:focus-visible h3{color:#b88aff}
+.project-card:hover .arrow,.project-card:focus-visible .arrow{transform:translate(3px,-3px);color:#70a4ff}
+
+/* Project preview modal */
+.modal-open{overflow:hidden}
+.project-modal{width:min(980px,calc(100vw - 2rem));max-height:calc(100svh - 2rem);padding:0;border:1px solid rgba(126,78,236,.55);background:rgba(13,11,22,.98);color:var(--ink);box-shadow:0 35px 120px rgba(0,0,0,.7),0 0 80px rgba(106,17,203,.16);overflow:auto}
+.project-modal::backdrop{background:rgba(3,2,8,.82);backdrop-filter:blur(12px);animation:modalFade .25s ease}
+.project-modal[open]{animation:modalEnter .35s cubic-bezier(.2,.8,.2,1)}
+.modal-shell{position:relative}
+.modal-close{position:absolute;z-index:5;right:1rem;top:1rem;width:42px;height:42px;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(8,7,16,.78);color:#fff;font:300 1.5rem Manrope;cursor:pointer;backdrop-filter:blur(10px);transition:.25s}
+.modal-close:hover{background:#6a11cb;transform:rotate(5deg)}
+.modal-media{position:relative;aspect-ratio:2/1;overflow:hidden;background:radial-gradient(circle,rgba(106,17,203,.3),transparent 50%),#0a0912}
+.modal-media:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,11,22,.85),transparent 42%);pointer-events:none}
+.modal-media img,.modal-media video{width:100%;height:100%;object-fit:cover}
+.modal-copy{padding:clamp(1.5rem,4vw,3rem)}
+.modal-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem}
+.modal-heading h2{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.95;letter-spacing:-.055em;margin:.65rem 0 1rem}
+.modal-heading>span{flex:none;padding:.5rem .65rem;border:1px solid var(--line);color:#bba8d2;font:400 .58rem DM Mono;text-transform:uppercase}
+.modal-summary{max-width:760px;color:#b3abb9;font-size:1rem;line-height:1.75}
+.project-modal .tags{margin:1.5rem 0}
+.modal-highlights{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.modal-highlights h3{font:500 .68rem DM Mono;text-transform:uppercase;letter-spacing:.12em;color:#8faeff}
+.modal-highlights ul{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem 2rem;margin:1.2rem 0 0;padding:0;list-style:none}
+.modal-highlights li{position:relative;padding-left:1rem;color:#c2bbc8;font-size:.85rem}
+.modal-highlights li:before{content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;background:#8b35e3;box-shadow:0 0 10px #6a11cb}
+.modal-actions{display:flex;gap:.75rem;align-items:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.modal-actions .button.primary{min-width:190px}
+.modal-actions .button:last-child{margin-left:auto}
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+@keyframes modalEnter{from{opacity:0;transform:translateY(24px) scale(.975)}to{opacity:1;transform:none}}
+
+@media(max-width:620px){.project-modal{width:calc(100vw - 1rem);max-height:calc(100svh - 1rem)}.modal-media{aspect-ratio:1.35/1}.modal-heading{display:block}.modal-heading>span{display:inline-block}.modal-highlights ul{grid-template-columns:1fr}.modal-actions{align-items:stretch;flex-direction:column}.modal-actions .button,.modal-actions .button.primary{width:100%;min-width:0}.modal-actions .button:last-child{margin-left:0}}
+@media(prefers-reduced-motion:reduce){.media-hover{display:none}.project-card:hover .media-static,.project-card:focus-visible .media-static{opacity:1}}
