@@ -13,7 +13,10 @@ find "$release_dir" -type d -exec chmod 755 {} +
 find "$release_dir" -type f -exec chmod 644 {} +
 test -s "$release_dir/index.html"
 if ! nginx -t; then echo "nginx validation failed; production was not replaced." >&2; exit 1; fi
-if [[ -d "$production_dir" ]]; then mv "$production_dir" "${production_dir}.previous"; fi
+if [[ -d "$production_dir" ]]; then
+  previous_dir="${production_dir}.previous.$(date -u +%Y%m%d-%H%M%S)"
+  mv "$production_dir" "$previous_dir"
+fi
 mv "$release_dir" "$production_dir"
 nginx -t
 systemctl reload nginx
