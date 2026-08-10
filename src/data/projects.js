@@ -54,7 +54,7 @@ export const projects = [
   {
     slug: 'pokemon-card-gan', title: 'Pokémon Trading Card GAN', year: '2024', category: 'Artificial Intelligence', status: 'Completed', featured: false,
     summary: 'A generative adversarial network trained to synthesize original trading-card-style imagery.', description: 'A machine-learning experiment exploring adversarial training and visual generation.', tech: ['Python', 'GANs', 'Machine Learning'], image: '/assets/images/pokemon_gan_static.png',
-    features: ['Adversarial image generation', 'Training-data pipeline', 'Generated-image evaluation'], challenge: 'GAN stability and visual coherence depend heavily on data preparation and balanced training.', github: 'https://github.com/KoltonGalie/Pokemon-GAN', demo: null
+    features: ['Adversarial image generation', 'Training-data pipeline', 'Generated-image evaluation'], challenge: 'GAN stability and visual coherence depend heavily on data preparation and balanced training.', github: 'https://github.com/KoltonGalie/pokemon-card-gan', demo: null
   },
   {
     slug: 'valorant-discord-bot', title: 'Valorant Discord Bot', year: '2024', category: 'Automation', status: 'Completed', featured: false,

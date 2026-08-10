@@ -1,4 +1,4 @@
-import { projects } from './data/projects.js?v=github-links-1';
+import { projects } from './data/projects.js?v=github-links-2';
 
 const groups = { Languages: ['Python','Java','C++','C#','JavaScript','PHP','SQL'], 'Web + APIs': ['HTML','CSS','REST APIs','FastAPI','WebSockets'], Systems: ['Linux','Ubuntu Server','nginx','Cloudflare','Networking','SSH','PostgreSQL'], 'Automation + Platforms': ['Power Automate','Canvas LMS APIs','Git','GitHub'], Security: ['Secure configuration','Privacy-aware processing','Access control','Threat-conscious design'] };
 const categories = ['All', ...new Set(projects.map(p => p.category))]; let active = 'All';
