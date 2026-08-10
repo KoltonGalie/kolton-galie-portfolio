@@ -1,4 +1,4 @@
-import { projects } from './data/projects.js?v=project-visuals-1';
+import { projects } from './data/projects.js?v=reactive-ui-2';
 
 const groups = { Languages: ['Python','Java','C++','C#','JavaScript','PHP','SQL'], 'Web + APIs': ['HTML','CSS','REST APIs','FastAPI','WebSockets'], Systems: ['Linux','Ubuntu Server','nginx','Cloudflare','Networking','SSH','PostgreSQL'], 'Automation + Platforms': ['Power Automate','Canvas LMS APIs','Git','GitHub'], Security: ['Secure configuration','Privacy-aware processing','Access control','Threat-conscious design'] };
 const categories = ['All', ...new Set(projects.map(p => p.category))]; let active = 'All';
@@ -6,6 +6,7 @@ const grid = document.querySelector('#project-grid'); const filters = document.q
 const esc = value => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 categories.forEach(name => { const b=document.createElement('button'); b.textContent=name; b.className=name==='All'?'active':''; b.addEventListener('click',()=>{active=name; filters.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));render();}); filters.append(b); });
 const visualMarkup=(kind,i)=>{
+  if(kind==='drone')return `<div class="project-visual drone-visual" aria-hidden="true"><div class="flight-hud"><span>CF-2.1</span><span>LINK <b>●</b></span></div><div class="flight-path"><i></i><i></i><i></i><i></i></div><div class="quadcopter"><div class="drone-arm arm-a"></div><div class="drone-arm arm-b"></div><div class="propeller prop-one"></div><div class="propeller prop-two"></div><div class="propeller prop-three"></div><div class="propeller prop-four"></div><div class="drone-body"><i></i></div></div><div class="telemetry"><span>ALT <b>1.42m</b></span><span>POLICY <b>ACTIVE</b></span></div><div class="ground-grid"></div></div>`;
   if(kind==='canvas')return `<div class="project-visual canvas-visual" aria-hidden="true"><div class="visual-window"><div class="window-bar"><i></i><i></i><i></i><b>COURSE OPERATIONS</b></div><div class="canvas-command"><span>FIND</span><strong>outdated content</strong><i>→</i><span>REPLACE</span></div><div class="course-rows"><span><i></i><b>COURSE_101</b><em>READY</em></span><span><i></i><b>COURSE_204</b><em>SCAN</em></span><span><i></i><b>COURSE_318</b><em>READY</em></span></div></div></div>`;
   if(kind==='redaction')return `<div class="project-visual redaction-visual" aria-hidden="true"><div class="document-scan"><div class="doc-label"><span>PII_SCAN</span><b>LOCAL</b></div><p><i></i><i class="redacted"></i><i></i></p><p><i class="short"></i><i></i><i class="redacted wide"></i></p><p><i></i><i class="redacted"></i><i class="short"></i></p><p><i class="redacted wide"></i><i></i></p><div class="scan-beam"></div><div class="scan-count">03 NAMES DETECTED</div></div></div>`;
   if(kind==='homelab')return `<div class="project-visual homelab-visual" aria-hidden="true"><div class="network-cloud">CF</div><div class="network-line line-one"></div><div class="network-line line-two"></div><div class="server-rack"><div><i></i><span>NGINX</span><b>●</b></div><div><i></i><span>APPS</span><b>●</b></div><div><i></i><span>DATA</span><b>●</b></div></div><div class="service-nodes"><i></i><i></i><i></i></div></div>`;
@@ -46,6 +47,7 @@ function openProject(slug,trigger){
   const p=projects.find(project=>project.slug===slug); if(!p)return;
   modalTrigger=trigger;
   modalContent.innerHTML=`<div class="modal-media">${mediaMarkup(p,projects.indexOf(p),true)}</div><div class="modal-copy"><p class="kicker">${esc(p.category)} · ${esc(p.year)}</p><div class="modal-heading"><h2 id="modal-title">${esc(p.title)}</h2><span>${esc(p.status)}</span></div><p class="modal-summary">${esc(p.description||p.summary)}</p><div class="tags">${p.tech.map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="modal-highlights"><h3>At a glance</h3><ul>${p.features.slice(0,4).map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div>${p.resources?.length?`<div class="modal-resources"><h3>Published tools</h3>${p.resources.map(r=>`<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.label)} <span>↗</span></a>`).join('')}</div>`:''}<div class="modal-actions"><a class="button primary" href="/project.html?id=${encodeURIComponent(p.slug)}">View more <span>→</span></a>${p.github?`<a class="button" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>`:''}</div></div>`;
+  activateMagnetics(modalContent);
   modal.showModal(); document.body.classList.add('modal-open'); modalClose.focus();
 }
 function closeProject(){if(!modal.open)return;modal.close();document.body.classList.remove('modal-open');modalContent.querySelector('video')?.pause();modalTrigger?.focus();}
@@ -74,3 +76,46 @@ const menu=document.querySelector('.menu-button'),nav=document.querySelector('#n
 document.querySelector('#year').textContent=new Date().getFullYear();
 if(matchMedia('(pointer:fine)').matches){addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',`${e.clientX}px`);document.documentElement.style.setProperty('--my',`${e.clientY}px`);});}
 const canvas=document.querySelector('#network'); const ctx=canvas.getContext('2d'); let nodes=[]; function size(){const d=Math.min(devicePixelRatio,1.5);canvas.width=canvas.clientWidth*d;canvas.height=canvas.clientHeight*d;ctx.setTransform(d,0,0,d,0,0);nodes=Array.from({length:matchMedia('(max-width:700px)').matches?18:34},()=>({x:Math.random()*canvas.clientWidth,y:Math.random()*canvas.clientHeight,vx:(Math.random()-.5)*.14,vy:(Math.random()-.5)*.14}));} function draw(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);nodes.forEach((n,i)=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>canvas.clientWidth)n.vx*=-1;if(n.y<0||n.y>canvas.clientHeight)n.vy*=-1;for(let j=i+1;j<nodes.length;j++){const m=nodes[j],d=Math.hypot(n.x-m.x,n.y-m.y);if(d<150){ctx.strokeStyle=`rgba(75,180,255,${(1-d/150)*.16})`;ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke();}}ctx.fillStyle='rgba(111,215,255,.5)';ctx.beginPath();ctx.arc(n.x,n.y,1.2,0,7);ctx.fill();});requestAnimationFrame(draw);} size();addEventListener('resize',size);draw();
+
+// Lightweight reactive layer: original, dependency-free, and disabled for touch/reduced motion.
+const finePointer=matchMedia('(pointer:fine)').matches;
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const progress=document.querySelector('.scroll-progress');
+const cursorDot=document.querySelector('.cursor-dot');
+const cursorRing=document.querySelector('.cursor-ring');
+let ringX=innerWidth/2,ringY=innerHeight/2,targetX=ringX,targetY=ringY,scrollQueued=false;
+const reactiveLayers=[...document.querySelectorAll('.section-heading,.statement,.about-orbit')];
+function updateScroll(){const max=document.documentElement.scrollHeight-innerHeight;const ratio=max>0?scrollY/max:0;progress.style.transform=`scaleX(${ratio})`;if(!reducedMotion)reactiveLayers.forEach(el=>{const r=el.getBoundingClientRect();const shift=Math.max(-12,Math.min(12,(innerHeight/2-(r.top+r.height/2))*.022));el.style.setProperty('--scroll-shift',`${shift}px`);});scrollQueued=false;}
+addEventListener('scroll',()=>{if(!scrollQueued){scrollQueued=true;requestAnimationFrame(updateScroll);}},{passive:true});updateScroll();
+if(finePointer&&!reducedMotion){
+  document.body.classList.add('has-reactive-pointer');
+  addEventListener('pointermove',e=>{targetX=e.clientX;targetY=e.clientY;cursorDot.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0)`;},{passive:true});
+  const followCursor=()=>{ringX+=(targetX-ringX)*.16;ringY+=(targetY-ringY)*.16;cursorRing.style.transform=`translate3d(${ringX}px,${ringY}px,0)`;requestAnimationFrame(followCursor);};followCursor();
+  document.addEventListener('pointerover',e=>{const target=e.target.closest('a,button,.project-card,input');if(target&&!target.contains(e.relatedTarget))document.body.classList.add('cursor-engaged');});
+  document.addEventListener('pointerout',e=>{const target=e.target.closest('a,button,.project-card,input');if(target&&!target.contains(e.relatedTarget))document.body.classList.remove('cursor-engaged');});
+  activateMagnetics();
+  const heroContent=document.querySelector('.hero-content');
+  document.querySelector('.hero')?.addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);heroContent.style.setProperty('--hero-x',`${x*11}px`);heroContent.style.setProperty('--hero-y',`${y*8}px`);});
+}
+function activateMagnetics(root=document){
+  if(!finePointer||reducedMotion)return;
+  root.querySelectorAll('.button:not([data-magnetic]),.filters button:not([data-magnetic]),.header-cta:not([data-magnetic])').forEach(el=>{
+    el.dataset.magnetic='true';
+    el.classList.add('magnetic');
+    el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mag-x',`${(e.clientX-r.left-r.width/2)*.13}px`);el.style.setProperty('--mag-y',`${(e.clientY-r.top-r.height/2)*.18}px`);});
+    el.addEventListener('pointerleave',()=>{el.style.setProperty('--mag-x','0px');el.style.setProperty('--mag-y','0px');});
+  });
+}
+function activateCards(){
+  document.querySelectorAll('.project-card:not([data-reactive])').forEach(card=>{
+    card.dataset.reactive='true';
+    if(!finePointer||reducedMotion)return;
+    card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;card.style.setProperty('--card-x',`${x*100}%`);card.style.setProperty('--card-y',`${y*100}%`);card.style.setProperty('--tilt-y',`${(x-.5)*5}deg`);card.style.setProperty('--tilt-x',`${(.5-y)*4}deg`);});
+    card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg');});
+  });
+}
+activateCards();
+const gridChanges=new MutationObserver(activateCards);gridChanges.observe(grid,{childList:true});
+document.addEventListener('click',e=>{const target=e.target.closest('.button,.filters button');if(!target||reducedMotion)return;const r=target.getBoundingClientRect(),ripple=document.createElement('i');ripple.className='click-ripple';ripple.style.left=`${e.clientX-r.left}px`;ripple.style.top=`${e.clientY-r.top}px`;target.append(ripple);ripple.addEventListener('animationend',()=>ripple.remove());});
+const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){document.querySelectorAll('#nav a').forEach(link=>link.classList.toggle('current',link.getAttribute('href')===`#${entry.target.id}`));}}),{rootMargin:'-40% 0px -50%'});
+document.querySelectorAll('main section[id]').forEach(section=>sectionObserver.observe(section));

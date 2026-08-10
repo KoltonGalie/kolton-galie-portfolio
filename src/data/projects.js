@@ -3,7 +3,7 @@ export const projects = [
     slug: 'aero-sim2real', title: 'AERO-Sim2Real', year: '2025–2026', category: 'Robotics / Drones', status: 'Active research', featured: true,
     summary: 'A sim-to-real reinforcement learning platform for training UAV control policies in NVIDIA IsaacLab and deploying them to Crazyflie 2.1 drones.',
     description: 'Co-developed an autonomous flight workflow spanning simulation, policy inference, physical flight, operator control, telemetry, and experiment logging. The system connects learned navigation policies with a safety-conscious real-world control layer.',
-    tech: ['Python', 'Crazyflie 2.1', 'IsaacLab', 'FastAPI', 'WebSockets', 'Reinforcement Learning'], image: '/assets/images/hero-network.png', video: '/assets/video/aerosim2real.mp4', hoverMedia: '/assets/video/aerosim2real.mp4?rev=project-modal-1',
+    tech: ['Python', 'Crazyflie 2.1', 'IsaacLab', 'FastAPI', 'WebSockets', 'Reinforcement Learning'], image: null, visual: 'drone', video: '/assets/video/aerosim2real.mp4', hoverMedia: '/assets/video/aerosim2real.mp4?rev=project-modal-1',
     features: ['Simulation-to-hardware policy workflow', 'Real-time telemetry and flight visualization', 'WebSocket operator commands', 'Safety and dead-man controls', 'Experiment and flight logging'],
     challenge: 'Bridging simulation assumptions with real hardware requires careful telemetry, command timing, observability, and safety boundaries.', github: 'https://github.com/AkbasLab/IsaacLab/tree/main/CrazyFlie_WebUI', demo: null
   },
