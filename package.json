@@ -1,0 +1,1 @@
+{"name":"kolton-galie-portfolio","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"python3 -m http.server 4173 --directory src","build":"./scripts/build.sh","deploy":"sudo ./deploy.sh"}}
