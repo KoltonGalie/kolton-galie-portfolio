@@ -81,18 +81,11 @@ const canvas=document.querySelector('#network'); const ctx=canvas.getContext('2d
 const finePointer=matchMedia('(pointer:fine)').matches;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const progress=document.querySelector('.scroll-progress');
-const cursorDot=document.querySelector('.cursor-dot');
-const cursorRing=document.querySelector('.cursor-ring');
-let ringX=innerWidth/2,ringY=innerHeight/2,targetX=ringX,targetY=ringY,scrollQueued=false;
+let scrollQueued=false;
 const reactiveLayers=[...document.querySelectorAll('.section-heading,.statement,.about-orbit')];
 function updateScroll(){const max=document.documentElement.scrollHeight-innerHeight;const ratio=max>0?scrollY/max:0;progress.style.transform=`scaleX(${ratio})`;if(!reducedMotion)reactiveLayers.forEach(el=>{const r=el.getBoundingClientRect();const shift=Math.max(-12,Math.min(12,(innerHeight/2-(r.top+r.height/2))*.022));el.style.setProperty('--scroll-shift',`${shift}px`);});scrollQueued=false;}
 addEventListener('scroll',()=>{if(!scrollQueued){scrollQueued=true;requestAnimationFrame(updateScroll);}},{passive:true});updateScroll();
 if(finePointer&&!reducedMotion){
-  document.body.classList.add('has-reactive-pointer');
-  addEventListener('pointermove',e=>{targetX=e.clientX;targetY=e.clientY;cursorDot.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0)`;},{passive:true});
-  const followCursor=()=>{ringX+=(targetX-ringX)*.16;ringY+=(targetY-ringY)*.16;cursorRing.style.transform=`translate3d(${ringX}px,${ringY}px,0)`;requestAnimationFrame(followCursor);};followCursor();
-  document.addEventListener('pointerover',e=>{const target=e.target.closest('a,button,.project-card,input');if(target&&!target.contains(e.relatedTarget))document.body.classList.add('cursor-engaged');});
-  document.addEventListener('pointerout',e=>{const target=e.target.closest('a,button,.project-card,input');if(target&&!target.contains(e.relatedTarget))document.body.classList.remove('cursor-engaged');});
   activateMagnetics();
   const heroContent=document.querySelector('.hero-content');
   document.querySelector('.hero')?.addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);heroContent.style.setProperty('--hero-x',`${x*11}px`);heroContent.style.setProperty('--hero-y',`${y*8}px`);});
