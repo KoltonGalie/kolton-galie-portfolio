@@ -49,6 +49,21 @@ modal.addEventListener('cancel',e=>{e.preventDefault();closeProject();});
 search.addEventListener('input',render); render();
 document.querySelector('#skill-groups').innerHTML=Object.entries(groups).map(([k,v],i)=>`<article class="skill-group reveal"><span>0${i+1}</span><h3>${k}</h3><div>${v.map(x=>`<b>${x}</b>`).join('')}</div></article>`).join('');
 const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.12}); document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function typeHeading(el){
+  if(el.dataset.typed==='true')return; el.dataset.typed='true';
+  const finalText=el.dataset.text||el.textContent; const typo=el.dataset.typo||finalText;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=finalText;return;}
+  el.textContent=''; el.classList.add('is-typing');
+  for(const char of typo){el.textContent+=char;await wait(42+Math.random()*34);}
+  await wait(430);
+  let shared=0; while(shared<typo.length&&typo[shared]===finalText[shared])shared++;
+  while(el.textContent.length>shared){el.textContent=el.textContent.slice(0,-1);await wait(34);}
+  for(const char of finalText.slice(shared)){el.textContent+=char;await wait(48+Math.random()*30);}
+  await wait(900); el.classList.remove('is-typing'); el.classList.add('typed-complete');
+}
+const typingObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){typeHeading(entry.target);typingObserver.unobserve(entry.target);}}),{threshold:.55});
+document.querySelectorAll('.scroll-type').forEach(el=>typingObserver.observe(el));
 const menu=document.querySelector('.menu-button'),nav=document.querySelector('#nav'); menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));nav.classList.toggle('open',!open);}); nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu?.setAttribute('aria-expanded','false');}));
 document.querySelector('#year').textContent=new Date().getFullYear();
 if(matchMedia('(pointer:fine)').matches){addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',`${e.clientX}px`);document.documentElement.style.setProperty('--my',`${e.clientY}px`);});}

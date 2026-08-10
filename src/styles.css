@@ -68,3 +68,7 @@
 @keyframes signalMarquee{to{transform:translateX(-50%)}}
 @media(max-width:620px){.signal-strip .signal-track{animation-duration:25s}.signal-strip i{padding-inline:1.15rem}}
 @media(prefers-reduced-motion:reduce){.signal-strip{mask-image:none;-webkit-mask-image:none}.signal-strip .signal-track{animation:none}.signal-strip .signal-track span:nth-child(2){display:none}.signal-strip:before,.signal-strip:after{display:none}}
+
+/* Scroll-triggered code headings */
+.code-heading{font-family:DM Mono,monospace;font-weight:400;letter-spacing:-.06em;min-height:1.05em}.scroll-type{position:relative;color:transparent;background:linear-gradient(30deg,#a65bef,#5593ff,#7133dc);-webkit-background-clip:text;background-clip:text}.scroll-type:after{content:"";display:inline-block;width:.075em;height:.82em;margin-left:.09em;vertical-align:-.04em;background:#76a4ff;box-shadow:0 0 12px rgba(106,17,203,.8);opacity:0}.scroll-type.is-typing:after{opacity:1;animation:typeCursor .72s steps(1) infinite}.scroll-type.typed-complete:after{animation:cursorFade 1.2s forwards}@keyframes typeCursor{50%{opacity:0}}@keyframes cursorFade{0%,55%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.scroll-type:after{display:none}}
