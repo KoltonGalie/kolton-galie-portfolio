@@ -11,7 +11,7 @@ export const projects = [
     slug: 'canvas-lms-toolkit', title: 'Canvas LMS Toolkit', year: 'Ongoing', category: 'Canvas / Education Technology', status: 'Community tools published', featured: true,
     summary: 'Browser-based and API-driven tools for bulk content updates, accessibility-report automation, course checks, and repetitive Canvas administration.',
     description: 'A growing collection of Canvas LMS automation built to make large course-maintenance jobs safer and faster. Public tools include a bulk find-and-replace userscript and automation for starting and monitoring Accessibility Report scans across lists of courses.',
-    tech: ['JavaScript', 'Tampermonkey', 'Canvas LMS', 'Canvas REST API', 'Automation', 'Accessibility'], image: null,
+    tech: ['JavaScript', 'Tampermonkey', 'Canvas LMS', 'Canvas REST API', 'Automation', 'Accessibility'], image: null, visual: 'canvas',
     features: ['Bulk search, review, and optional replacement across courses', 'Bulk Accessibility Report scan automation', 'Course search and readiness validation', 'Link and content checks', 'Repeatable administrative workflows'],
     challenge: 'Bulk changes need clear review steps and careful handling of Canvas session security, while institutional course content, credentials, and student data must remain private.', github: null, demo: null,
     resources: [
@@ -23,7 +23,7 @@ export const projects = [
     slug: 'discussion-redaction', title: 'Discussion Name Redaction', year: 'Recent', category: 'Artificial Intelligence', status: 'Private data excluded', featured: true,
     summary: 'A local NLP workflow for removing personally identifiable names from thousands of discussion messages before downstream analysis.',
     description: 'A privacy-first processing project combining named-entity recognition, local language-model experiments, spreadsheet workflows, and GPU-assisted runs. No student content or identifying datasets are published.',
-    tech: ['Python', 'spaCy', 'Local LLMs', 'Excel', 'GPU Processing'], image: null,
+    tech: ['Python', 'spaCy', 'Local LLMs', 'Excel', 'GPU Processing'], image: null, visual: 'redaction',
     features: ['Named-entity detection', 'Local-only processing experiments', 'Spreadsheet ingestion and export', 'High-volume message handling', 'Human-review-friendly output'],
     challenge: 'Names are context-sensitive, so useful automation must balance recall with false positives while preserving the meaning of each message.', github: 'https://github.com/KoltonGalie/discussion-name-redactor', demo: null
   },
@@ -31,7 +31,7 @@ export const projects = [
     slug: 'homelab', title: 'Production Homelab', year: 'Ongoing', category: 'Systems Administration', status: 'Live infrastructure', featured: true,
     summary: 'A self-hosted Ubuntu environment with nginx routing, Cloudflare Tunnel, databases, containerized services, TLS, and operational recovery workflows.',
     description: 'A practical systems platform supporting multiple isolated applications behind nginx and a Cloudflare Tunnel. Work includes reverse-proxy design, TLS origin routing, service management, backups, and careful production changes.',
-    tech: ['Ubuntu Server', 'nginx', 'Cloudflare Tunnel', 'PostgreSQL', 'Docker', 'TLS', 'DNS'], image: null,
+    tech: ['Ubuntu Server', 'nginx', 'Cloudflare Tunnel', 'PostgreSQL', 'Docker', 'TLS', 'DNS'], image: null, visual: 'homelab',
     features: ['Multi-service reverse proxy', 'Cloudflare Tunnel ingress', 'TLS and hostname routing', 'Database-backed applications', 'Backup and rollback procedures'],
     challenge: 'The primary constraint is operational: improving one service without disrupting unrelated virtual hosts or exposing unnecessary ports.', github: null, demo: null
   },

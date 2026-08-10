@@ -1,13 +1,19 @@
-import { projects } from './data/projects.js?v=canvas-cleanup-2';
+import { projects } from './data/projects.js?v=project-visuals-1';
 
 const groups = { Languages: ['Python','Java','C++','C#','JavaScript','PHP','SQL'], 'Web + APIs': ['HTML','CSS','REST APIs','FastAPI','WebSockets'], Systems: ['Linux','Ubuntu Server','nginx','Cloudflare','Networking','SSH','PostgreSQL'], 'Automation + Platforms': ['Power Automate','Canvas LMS APIs','Git','GitHub'], Security: ['Secure configuration','Privacy-aware processing','Access control','Threat-conscious design'] };
 const categories = ['All', ...new Set(projects.map(p => p.category))]; let active = 'All';
 const grid = document.querySelector('#project-grid'); const filters = document.querySelector('#filters'); const search = document.querySelector('#project-search');
 const esc = value => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 categories.forEach(name => { const b=document.createElement('button'); b.textContent=name; b.className=name==='All'?'active':''; b.addEventListener('click',()=>{active=name; filters.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));render();}); filters.append(b); });
+const visualMarkup=(kind,i)=>{
+  if(kind==='canvas')return `<div class="project-visual canvas-visual" aria-hidden="true"><div class="visual-window"><div class="window-bar"><i></i><i></i><i></i><b>COURSE OPERATIONS</b></div><div class="canvas-command"><span>FIND</span><strong>outdated content</strong><i>→</i><span>REPLACE</span></div><div class="course-rows"><span><i></i><b>COURSE_101</b><em>READY</em></span><span><i></i><b>COURSE_204</b><em>SCAN</em></span><span><i></i><b>COURSE_318</b><em>READY</em></span></div></div></div>`;
+  if(kind==='redaction')return `<div class="project-visual redaction-visual" aria-hidden="true"><div class="document-scan"><div class="doc-label"><span>PII_SCAN</span><b>LOCAL</b></div><p><i></i><i class="redacted"></i><i></i></p><p><i class="short"></i><i></i><i class="redacted wide"></i></p><p><i></i><i class="redacted"></i><i class="short"></i></p><p><i class="redacted wide"></i><i></i></p><div class="scan-beam"></div><div class="scan-count">03 NAMES DETECTED</div></div></div>`;
+  if(kind==='homelab')return `<div class="project-visual homelab-visual" aria-hidden="true"><div class="network-cloud">CF</div><div class="network-line line-one"></div><div class="network-line line-two"></div><div class="server-rack"><div><i></i><span>NGINX</span><b>●</b></div><div><i></i><span>APPS</span><b>●</b></div><div><i></i><span>DATA</span><b>●</b></div></div><div class="service-nodes"><i></i><i></i><i></i></div></div>`;
+  return `<div class="project-glyph" aria-hidden="true">${String(i+1).padStart(2,'0')}<span></span></div>`;
+};
 const mediaMarkup=(p,i,modal=false)=>{
   if(modal&&p.hoverMedia){return p.hoverMedia.includes('.mp4')?`<video src="${esc(p.hoverMedia)}" ${p.image?`poster="${esc(p.image)}"`:''} autoplay muted loop playsinline controls></video>`:`<img src="${esc(p.hoverMedia)}" alt="${esc(p.title)} animated project preview">`;}
-  const base=p.image?`<img class="media-static" src="${esc(p.image)}" alt="${esc(p.title)} project preview" loading="lazy">`:`<div class="project-glyph" aria-hidden="true">${String(i+1).padStart(2,'0')}<span></span></div>`;
+  const base=p.image?`<img class="media-static" src="${esc(p.image)}" alt="${esc(p.title)} project preview" loading="lazy">`:visualMarkup(p.visual,i);
   if(!p.hoverMedia)return base;
   const hover=p.hoverMedia.includes('.mp4')?`<video class="media-hover hover-video" src="${esc(p.hoverMedia)}" ${p.image?`poster="${esc(p.image)}"`:''} muted loop playsinline preload="auto"></video>`:`<img class="media-hover hover-image" src="${esc(p.hoverMedia)}" alt="" loading="eager">`;
   return base+hover;
