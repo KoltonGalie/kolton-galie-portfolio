@@ -55,3 +55,16 @@
 @media(max-width:620px){.project-modal{width:calc(100vw - 1rem);max-height:calc(100svh - 1rem)}.modal-media{aspect-ratio:1.35/1}.modal-heading{display:block}.modal-heading>span{display:inline-block}.modal-highlights ul{grid-template-columns:1fr}.modal-actions{align-items:stretch;flex-direction:column}.modal-actions .button,.modal-actions .button.primary{width:100%;min-width:0}.modal-actions .button:last-child{margin-left:0}}
 @media(prefers-reduced-motion:reduce){.media-hover{display:none}.project-card:hover .media-static,.project-card:focus-visible .media-static{opacity:1}}
 .footer-meta{display:flex;justify-content:flex-end;align-items:center;gap:1rem;text-align:right}.footer-meta a{color:#b9a8cc;transition:.2s}.footer-meta a:hover,.footer-meta a:focus-visible{color:#8bb6ff}.contact-actions .availability{margin-left:.35rem}@media(max-width:760px){.footer-meta{gap:.7rem}.footer-meta>span{display:none}}@media(max-width:620px){.contact-actions{align-items:stretch}.contact-actions .button{width:100%}.contact-actions .availability{margin:0}}
+
+/* Seamless capability marquee */
+.signal-strip{position:relative;display:flex;padding:0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.signal-strip:before,.signal-strip:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:8vw;pointer-events:none}
+.signal-strip:before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.signal-strip:after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.signal-strip .signal-track{display:flex;flex:none;width:max-content;animation:signalMarquee 34s linear infinite;will-change:transform}
+.signal-strip .signal-track span{display:flex;align-items:center;flex:none;padding:1.05rem 0;white-space:nowrap}
+.signal-strip i{display:inline-block;padding:0 1.55rem;color:#914de8;font-size:.55rem;filter:drop-shadow(0 0 6px rgba(106,17,203,.75))}
+.signal-strip:hover .signal-track{animation-play-state:paused}
+@keyframes signalMarquee{to{transform:translateX(-50%)}}
+@media(max-width:620px){.signal-strip .signal-track{animation-duration:25s}.signal-strip i{padding-inline:1.15rem}}
+@media(prefers-reduced-motion:reduce){.signal-strip{mask-image:none;-webkit-mask-image:none}.signal-strip .signal-track{animation:none}.signal-strip .signal-track span:nth-child(2){display:none}.signal-strip:before,.signal-strip:after{display:none}}
