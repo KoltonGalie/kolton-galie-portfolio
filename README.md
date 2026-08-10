@@ -28,4 +28,7 @@ This repository contains no production credentials, tunnel configuration, studen
 
 ## License
 
-Copyright © Kolton Galie. Portfolio source is not licensed for redistribution unless a license is added later.
+The portfolio source is licensed under the [MIT License](LICENSE). Personal
+biographical content, project trademarks, screenshots, and third-party media
+retain their respective rights and are not granted additional rights by the
+source-code license.
