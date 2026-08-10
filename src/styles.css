@@ -61,14 +61,15 @@
 .signal-strip:before,.signal-strip:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:8vw;pointer-events:none}
 .signal-strip:before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
 .signal-strip:after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-.signal-strip .signal-track{display:flex;flex:none;width:max-content;animation:signalMarquee 34s linear infinite;will-change:transform}
+.signal-strip .signal-track{display:flex;flex:none;width:max-content;animation:signalMarquee 40s linear infinite;will-change:transform}
 .signal-strip .signal-track span{display:flex;align-items:center;flex:none;padding:1.05rem 0;white-space:nowrap}
 .signal-strip i{display:inline-block;padding:0 1.55rem;color:#914de8;font-size:.55rem;filter:drop-shadow(0 0 6px rgba(106,17,203,.75))}
 .signal-strip:hover .signal-track{animation-play-state:paused}
 @keyframes signalMarquee{to{transform:translateX(-50%)}}
-@media(max-width:620px){.signal-strip .signal-track{animation-duration:25s}.signal-strip i{padding-inline:1.15rem}}
+@media(max-width:620px){.signal-strip .signal-track{animation-duration:30s}.signal-strip i{padding-inline:1.15rem}}
 @media(prefers-reduced-motion:reduce){.signal-strip{mask-image:none;-webkit-mask-image:none}.signal-strip .signal-track{animation:none}.signal-strip .signal-track span:nth-child(2){display:none}.signal-strip:before,.signal-strip:after{display:none}}
 
 /* Scroll-triggered code headings */
 .code-heading{font-family:DM Mono,monospace;font-weight:400;letter-spacing:-.06em;min-height:1.05em}.scroll-type{position:relative;color:transparent;background:linear-gradient(30deg,#a65bef,#5593ff,#7133dc);-webkit-background-clip:text;background-clip:text}.scroll-type:after{content:"";display:inline-block;width:.075em;height:.82em;margin-left:.09em;vertical-align:-.04em;background:#76a4ff;box-shadow:0 0 12px rgba(106,17,203,.8);opacity:0}.scroll-type.is-typing:after{opacity:1;animation:typeCursor .72s steps(1) infinite}.scroll-type.typed-complete:after{animation:cursorFade 1.2s forwards}@keyframes typeCursor{50%{opacity:0}}@keyframes cursorFade{0%,55%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.scroll-type:after{display:none}}
+.modal-resources{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}.modal-resources h3{width:100%;margin:0 0 .35rem;font:500 .68rem DM Mono;text-transform:uppercase;letter-spacing:.12em;color:#8faeff}.modal-resources a,.resource-button{padding:.65rem .8rem;border:1px solid rgba(106,17,203,.6);color:#c9b3e5;font:500 .6rem DM Mono;text-transform:uppercase;letter-spacing:.04em}.modal-resources a:hover,.modal-resources a:focus-visible,.resource-button:hover,.resource-button:focus-visible{background:rgba(106,17,203,.18);border-color:#7650df}.source-note .resource-button{display:flex;margin-top:.65rem;width:max-content}

@@ -8,20 +8,16 @@ export const projects = [
     challenge: 'Bridging simulation assumptions with real hardware requires careful telemetry, command timing, observability, and safety boundaries.', github: 'https://github.com/AkbasLab/IsaacLab/tree/main/CrazyFlie_WebUI', demo: null
   },
   {
-    slug: 'canvas-lms-toolkit', title: 'Canvas LMS Toolkit', year: 'Ongoing', category: 'Canvas / Education Technology', status: 'Private source', featured: true,
-    summary: 'A collection of API-driven tools for course discovery, readiness checks, link validation, accessibility review, and bulk course operations.',
-    description: 'Automation designed to reduce repetitive course-quality work across Canvas LMS. The tools use structured API workflows to inspect content and surface actionable issues while keeping institutional and student data private.',
-    tech: ['Python', 'Canvas REST API', 'Automation', 'Accessibility'], image: null,
-    features: ['Course search and readiness validation', 'Link and content checks', 'Instructor biography checks', 'Bulk course operations', 'Accessibility-oriented analysis'],
-    challenge: 'The reusable application logic can be discussed publicly, but institutional course content, credentials, and student data must remain excluded.', github: null, demo: null
-  },
-  {
-    slug: 'youtube-canvas-studio', title: 'YouTube → Canvas Studio', year: 'Ongoing', category: 'Automation', status: 'Private source', featured: true,
-    summary: 'Content migration automation that finds YouTube embeds, uploads media to Canvas Studio, reuses duplicates, and updates course HTML.',
-    description: 'A migration pipeline built to turn a repetitive, error-prone content task into a repeatable workflow. It identifies embedded media, avoids duplicate uploads when possible, and updates course pages programmatically.',
-    tech: ['Python', 'Canvas REST API', 'Canvas Studio', 'HTML Processing'], image: null,
-    features: ['Embed discovery', 'Automated Studio upload workflow', 'Duplicate-media reuse', 'Course HTML updates', 'Repeatable batch processing'],
-    challenge: 'Media identity, API rate limits, and safe HTML mutation require deliberate checks and idempotent operations.', github: null, demo: null
+    slug: 'canvas-lms-toolkit', title: 'Canvas LMS Toolkit', year: 'Ongoing', category: 'Canvas / Education Technology', status: 'Community tools published', featured: true,
+    summary: 'Browser-based and API-driven tools for bulk content updates, accessibility-report automation, course checks, and repetitive Canvas administration.',
+    description: 'A growing collection of Canvas LMS automation built to make large course-maintenance jobs safer and faster. Public tools include a bulk find-and-replace userscript and automation for starting and monitoring Accessibility Report scans across lists of courses.',
+    tech: ['JavaScript', 'Tampermonkey', 'Canvas LMS', 'Canvas REST API', 'Automation', 'Accessibility'], image: null,
+    features: ['Bulk search, review, and optional replacement across courses', 'Bulk Accessibility Report scan automation', 'Course search and readiness validation', 'Link and content checks', 'Repeatable administrative workflows'],
+    challenge: 'Bulk changes need clear review steps and careful handling of Canvas session security, while institutional course content, credentials, and student data must remain private.', github: null, demo: null,
+    resources: [
+      { label: 'Bulk Find + Replace', url: 'https://community.instructure.com/en/discussion/666768/bulk-find-replace-across-canvas-courses-with-tampermonkey#latest' },
+      { label: 'Accessibility Scan Automation', url: 'https://community.instructure.com/en/discussion/666182/accessibility-checker-update-report-automation#latest' }
+    ]
   },
   {
     slug: 'discussion-redaction', title: 'Discussion Name Redaction', year: 'Recent', category: 'Artificial Intelligence', status: 'Private data excluded', featured: true,
@@ -38,12 +34,6 @@ export const projects = [
     tech: ['Ubuntu Server', 'nginx', 'Cloudflare Tunnel', 'PostgreSQL', 'Docker', 'TLS', 'DNS'], image: null,
     features: ['Multi-service reverse proxy', 'Cloudflare Tunnel ingress', 'TLS and hostname routing', 'Database-backed applications', 'Backup and rollback procedures'],
     challenge: 'The primary constraint is operational: improving one service without disrupting unrelated virtual hosts or exposing unnecessary ports.', github: null, demo: null
-  },
-  {
-    slug: 'canvas-code-cleaner', title: 'Canvas Course Code Cleaner', year: 'Recent', category: 'Canvas / Education Technology', status: 'Private source', featured: false,
-    summary: 'Course-content tooling for identifying and removing unwanted course codes or metadata from files and page content.',
-    description: 'A focused cleanup workflow built around safe discovery and repeatable content changes in Canvas courses.', tech: ['Python', 'Canvas REST API', 'Content Analysis'], image: null,
-    features: ['Pattern discovery', 'Course content inspection', 'Targeted cleanup', 'Batch-oriented workflow'], challenge: 'Automated cleanup must avoid changing legitimate instructional content.', github: null, demo: null
   },
   {
     slug: 'encrypt-yo-face', title: 'EncryptYoFace', year: '2025', category: 'Cybersecurity', status: 'Prototype', featured: false,
