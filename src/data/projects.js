@@ -80,10 +80,5 @@ export const projects = [
     slug: 'music-inventory', title: 'Music Inventory Manager', year: '2025', category: 'Data / Database', status: 'Completed', featured: false,
     summary: 'A full-control inventory interface designed for managing a music store database.', description: 'A database application focused on practical inventory operations and data management.', tech: ['SQL', 'Database Design', 'Web Development'], image: '/assets/images/music_inventory_manager.png',
     features: ['Inventory CRUD operations', 'Structured catalog management', 'Database-backed interface'], challenge: 'Inventory systems depend on clear data models and safe, predictable updates.', github: null, demo: null
-  },
-  {
-    slug: 'bitburner-automation', title: 'Bitburner Automation System', year: 'Ongoing', category: 'Automation', status: 'Source not found on server', featured: false,
-    summary: 'JavaScript automation for network traversal, workload scheduling, optimization, and in-game interfaces.', description: 'A systems-thinking sandbox for building schedulers, discovery tools, and resource-aware automation.', tech: ['JavaScript', 'Scheduling', 'Graph Traversal', 'Optimization'], image: null,
-    features: ['Automated network discovery', 'Work scheduling', 'Resource optimization', 'Operator interfaces'], challenge: 'Effective scheduling requires continuously balancing resource availability, timing, and target value.', github: null, demo: null
   }
 ];
